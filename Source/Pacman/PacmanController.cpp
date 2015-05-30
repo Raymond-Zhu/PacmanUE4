@@ -6,7 +6,7 @@
 
 APacmanController::APacmanController(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer)
 {
-	PrimaryActorTick.bCanEverTick = false;
+	PrimaryActorTick.bCanEverTick = true;
 	PlayerScore = 0;
 	PlayerLives = 3;
 }
