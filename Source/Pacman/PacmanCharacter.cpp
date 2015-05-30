@@ -2,14 +2,23 @@
 
 #include "Pacman.h"
 #include "PacmanCharacter.h"
-
+#include "PacmanController.h"
 
 // Sets default values
 APacmanCharacter::APacmanCharacter()
 {
  	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
-	PlayerScore = 0;
+
+	//Camera Setup
+	SpringArm = CreateDefaultSubobject<USpringArmComponent>(TEXT("Spring Arm"));
+	SpringArm->SocketOffset = FVector(0, 35, 0);
+	SpringArm->TargetOffset = FVector(0, 0, 55);
+	SpringArm->bUsePawnControlRotation = true;
+	SpringArm->AttachParent = GetRootComponent();
+
+	PlayerCameraComponent = CreateDefaultSubobject<UCameraComponent>(TEXT("Player Camera"));
+	PlayerCameraComponent->AttachParent = SpringArm;
 
 }
 
@@ -17,7 +26,6 @@ APacmanCharacter::APacmanCharacter()
 void APacmanCharacter::BeginPlay()
 {
 	Super::BeginPlay();
-	
 }
 
 // Called every frame
@@ -32,6 +40,7 @@ void APacmanCharacter::SetupPlayerInputComponent(class UInputComponent* InputCom
 {
 	Super::SetupPlayerInputComponent(InputComponent);
 
+	check(InputComponent);
 	//Movement
 	InputComponent->BindAxis("MoveForward", this, &APacmanCharacter::MoveForward);
 	InputComponent->BindAxis("MoveRight", this, &APacmanCharacter::MoveRight);

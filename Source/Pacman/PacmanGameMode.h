@@ -12,8 +12,8 @@ UCLASS()
 class PACMAN_API APacmanGameMode : public AGameMode
 {
 	GENERATED_BODY()
-	
-	
-	
+
+public:
+	APacmanGameMode(const FObjectInitializer& ObjectInitializer);
 	
 };

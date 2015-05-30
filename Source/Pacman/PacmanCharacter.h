@@ -23,12 +23,17 @@ public:
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* InputComponent) override;
 
-	//Keeps track of player score;
-	float PlayerScore;
-	
 	//Calculates Left and Right Movements;
 	void MoveRight(float Val);
 
 	//Calculates Forward and Backward Movements;
 	void MoveForward(float Val);
+
+	/*Spring Arm*/
+	UPROPERTY(VisibleAnywhere, Category = "Camera")
+		USpringArmComponent* SpringArm;
+
+	/* Player Camera */
+	UPROPERTY(VisibleAnywhere, Category = "Camera")
+		UCameraComponent* PlayerCameraComponent;
 };
