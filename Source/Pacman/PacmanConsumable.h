@@ -19,11 +19,12 @@ public:
 	
 	// Called every frame
 	virtual void Tick( float DeltaSeconds ) override;
-
-	//Mesh
-	UStaticMeshComponent* MeshComponent;
 	
 	//What happens to the object OnHit.
+	UFUNCTION()
 	virtual void OnHit(AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit);
+
+	UPROPERTY()
+	USphereComponent* SphereComponent;
 	
 };
