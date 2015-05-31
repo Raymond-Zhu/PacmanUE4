@@ -14,7 +14,7 @@ APacmanConsumable::APacmanConsumable()
 	USphereComponent* SphereComponent = CreateDefaultSubobject<USphereComponent>(TEXT("Root Component"));
 	RootComponent = SphereComponent;
 	SphereComponent->InitSphereRadius(10.0f);
-	SphereComponent->SetCollisionProfileName(TEXT("Consumable"));
+	SphereComponent->SetCollisionProfileName(TEXT("Destructible"));
 
 	//Mesh
 	MeshComponent = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Sphere Mesh"));
