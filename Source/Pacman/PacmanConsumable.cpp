@@ -11,15 +11,14 @@ APacmanConsumable::APacmanConsumable()
 	PrimaryActorTick.bCanEverTick = true;
 
 	//Make root component a sphere that deals with physics
-	USphereComponent* SphereComponent = CreateDefaultSubobject<USphereComponent>(TEXT("Root Component"));
+	SphereComponent = CreateDefaultSubobject<USphereComponent>(TEXT("Root Component"));
 	RootComponent = SphereComponent;
-	SphereComponent->InitSphereRadius(10.0f);
+	SphereComponent->InitSphereRadius(60.0f);
 	SphereComponent->SetCollisionProfileName(TEXT("Destructible"));
+	SphereComponent->OnComponentHit.AddDynamic(this, &APacmanConsumable::OnHit);
 
-	//Mesh
-	MeshComponent = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Sphere Mesh"));
-	MeshComponent->AttachTo(RootComponent);
-
+	SphereComponent->SetWalkableSlopeOverride(FWalkableSlopeOverride(WalkableSlope_Unwalkable, 0.f));
+	SphereComponent->CanCharacterStepUpOn = ECB_No;	
 }
 
 // Called when the game starts or when spawned

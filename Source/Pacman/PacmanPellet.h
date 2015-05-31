@@ -12,8 +12,8 @@ UCLASS()
 class PACMAN_API APacmanPellet : public APacmanConsumable
 {
 	GENERATED_BODY()
-	
-	/* Destroys pellet and adds to Player Score*/
-	virtual void OnHit(AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit) override;
-	
+
+		/* Destroys pellet and adds to Player Score*/
+		//virtual void OnHit(AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit) override;
+		virtual void OnHit(AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit) override;
 };
