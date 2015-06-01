@@ -20,6 +20,8 @@ APacmanCharacter::APacmanCharacter()
 	PlayerCameraComponent = CreateDefaultSubobject<UCameraComponent>(TEXT("Player Camera"));
 	PlayerCameraComponent->AttachParent = SpringArm;
 
+	bIsPoweredUp = false;
+
 }
 
 // Called when the game starts or when spawned

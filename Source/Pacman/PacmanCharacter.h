@@ -35,5 +35,8 @@ public:
 
 	/* Player Camera */
 	UPROPERTY(VisibleAnywhere, Category = "Camera")
-		UCameraComponent* PlayerCameraComponent;
+	UCameraComponent* PlayerCameraComponent;
+
+	/*Boolean used for checking if Pacman is powered up or not*/
+	bool bIsPoweredUp;
 };
