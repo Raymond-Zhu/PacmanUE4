@@ -3,6 +3,8 @@
 #include "Pacman.h"
 #include "PacmanCharacter.h"
 #include "PacmanController.h"
+#include "PacmanGameMode.h"
+#include "Kismet/GameplayStatics.h"
 
 // Sets default values
 APacmanCharacter::APacmanCharacter()
@@ -21,6 +23,11 @@ APacmanCharacter::APacmanCharacter()
 	PlayerCameraComponent->AttachParent = SpringArm;
 
 	bIsPoweredUp = false;
+
+	static ConstructorHelpers::FClassFinder<ACharacter> PlayerPawnBPClass(TEXT("Blueprint'/Game/Pacman/BP_Pacman.BP_Pacman_C'"));
+	if (PlayerPawnBPClass.Class) {
+		PacmanBlueprint = (UClass*)PlayerPawnBPClass.Class;
+	}
 
 }
 
@@ -67,4 +74,25 @@ void APacmanCharacter::MoveRight(float Val) {
 		const FVector Direction = FRotationMatrix(Rotation).GetScaledAxis(EAxis::Y);
 		AddMovementInput(Direction, Val);
 	}
+}
+
+void APacmanCharacter::Respawn()
+{
+	APacmanController* PlayerController = Cast<APacmanController>(GetController());
+	APacmanGameMode* GameMode = Cast<APacmanGameMode>(UGameplayStatics::GetGameMode(GetWorld()));
+
+	PlayerController->UnPossess();
+	AActor* StartSpot = PlayerController->StartSpot.Get();
+	
+	FVector SpawnLocation = StartSpot->GetActorLocation();
+	FRotator SpawnRotation = StartSpot->GetActorRotation();
+
+	UWorld* const World = GetWorld();
+	if (World)
+	{
+		APacmanCharacter* PacmanRespawned = (APacmanCharacter*)World->SpawnActor<ACharacter>(PacmanBlueprint, SpawnLocation, SpawnRotation);
+		PlayerController->Possess(PacmanRespawned);
+	}
+
+	Destroy();
 }

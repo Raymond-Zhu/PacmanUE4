@@ -4,6 +4,8 @@
 #include "PacmanCharacter.h"
 #include "PacmanController.h"
 #include "PacmanGhostCharacter.h"
+#include "PacmanGameMode.h"
+#include "Kismet/GameplayStatics.h"
 
 // Sets default values
 APacmanGhostCharacter::APacmanGhostCharacter()
@@ -56,6 +58,10 @@ void APacmanGhostCharacter::OnHit(AActor* OtherActor, UPrimitiveComponent* Other
 			{
 				//TODO: Respawn Pacman
 				Controller->PlayerLives--;
+				if (Controller->PlayerLives > 0)
+				{
+					Pacman->Respawn();
+				}
 				//TODO:Game OverScreen when lives hit zero
 			}
 		}

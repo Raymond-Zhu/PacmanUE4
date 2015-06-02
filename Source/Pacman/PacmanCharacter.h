@@ -29,9 +29,13 @@ public:
 	//Calculates Forward and Backward Movements;
 	void MoveForward(float Val);
 
+	void Respawn();
+
+	TSubclassOf<class APacmanCharacter> PacmanBlueprint;
+
 	/*Spring Arm*/
 	UPROPERTY(VisibleAnywhere, Category = "Camera")
-		USpringArmComponent* SpringArm;
+	USpringArmComponent* SpringArm;
 
 	/* Player Camera */
 	UPROPERTY(VisibleAnywhere, Category = "Camera")
