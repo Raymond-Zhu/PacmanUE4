@@ -44,7 +44,7 @@ public:
 
 	/*Spring Arm*/
 	UPROPERTY(VisibleAnywhere, Category = "Camera")
-	USpringArmComponent* SpringArm;
+	USpringArmComponent* CameraBoom;
 
 	/* Player Camera */
 	UPROPERTY(VisibleAnywhere, Category = "Camera")
@@ -59,4 +59,10 @@ public:
 	
 	/*Timer Handle for Power Up*/
 	FTimerHandle TimerHandle;
+
+	/*Handles the direction of movement for the automove*/
+	FVector Direction;
+
+	/*Value used to pass into movement input*/
+	float Value;
 };
