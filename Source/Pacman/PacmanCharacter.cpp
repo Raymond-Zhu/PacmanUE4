@@ -22,6 +22,11 @@ APacmanCharacter::APacmanCharacter()
 	PlayerCameraComponent = CreateDefaultSubobject<UCameraComponent>(TEXT("Player Camera"));
 	PlayerCameraComponent->AttachParent = SpringArm;
 
+	ParticleSystem = CreateDefaultSubobject<UParticleSystemComponent>(TEXT("Powered Up Particles"));
+	ParticleSystem->AttachTo(RootComponent);
+	ParticleSystem->bAutoActivate = false;
+	ParticleSystem->SetRelativeLocation(FVector(-20.0f, 0.0f, 20.0f));
+
 	bIsPoweredUp = false;
 
 	static ConstructorHelpers::FClassFinder<ACharacter> PlayerPawnBPClass(TEXT("Blueprint'/Game/Pacman/BP_Pacman.BP_Pacman_C'"));
@@ -76,6 +81,40 @@ void APacmanCharacter::MoveRight(float Val) {
 	}
 }
 
+void APacmanCharacter::ParticleToggle()
+{
+	if (ParticleSystem && ParticleSystem->Template)
+	{
+		if (bIsPoweredUp)
+		{
+			ParticleSystem->ActivateSystem();
+		} 
+		else
+		{
+			ParticleSystem->DeactivateSystem();
+		}
+	}
+}
+
+void APacmanCharacter::PowerUp()
+{
+	if (bIsPoweredUp == false)
+	{
+		bIsPoweredUp = true;
+		ParticleToggle();
+	}
+	GetWorld()->GetTimerManager().SetTimer(TimerHandle, this, &APacmanCharacter::PowerDown, 5.0f, false);
+}
+
+void APacmanCharacter::PowerDown()
+{
+	if (bIsPoweredUp)
+	{
+		bIsPoweredUp = false;
+		ParticleToggle();
+	}
+}
+
 void APacmanCharacter::Respawn()
 {
 	APacmanController* PlayerController = Cast<APacmanController>(GetController());
@@ -83,7 +122,7 @@ void APacmanCharacter::Respawn()
 
 	PlayerController->UnPossess();
 	AActor* StartSpot = PlayerController->StartSpot.Get();
-	
+
 	FVector SpawnLocation = StartSpot->GetActorLocation();
 	FRotator SpawnRotation = StartSpot->GetActorRotation();
 

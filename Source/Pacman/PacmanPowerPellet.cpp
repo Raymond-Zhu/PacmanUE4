@@ -14,7 +14,7 @@ void APacmanPowerPellet::OnHit(AActor* OtherActor, UPrimitiveComponent* OtherCom
 	/*If it is Pacman, he is powered up and can eat ghosts and the pellet is destroyed.*/
 	if (Pacman) 
 	{
-		Pacman->bIsPoweredUp = true;
+		Pacman->PowerUp();
 		Destroy();
 	}
 }

@@ -33,6 +33,15 @@ public:
 
 	TSubclassOf<class APacmanCharacter> PacmanBlueprint;
 
+	/*Toggles Fire particles*/
+	void ParticleToggle();
+
+	/*Powers Pacman up for a limited time*/
+	void PowerUp();
+
+	/*Powers down Pacman*/
+	void PowerDown();
+
 	/*Spring Arm*/
 	UPROPERTY(VisibleAnywhere, Category = "Camera")
 	USpringArmComponent* SpringArm;
@@ -41,6 +50,13 @@ public:
 	UPROPERTY(VisibleAnywhere, Category = "Camera")
 	UCameraComponent* PlayerCameraComponent;
 
+	/*Manages Particle*/
+	UPROPERTY(EditAnywhere, Category = "Particle")
+	UParticleSystemComponent* ParticleSystem;
+
 	/*Boolean used for checking if Pacman is powered up or not*/
 	bool bIsPoweredUp;
+	
+	/*Timer Handle for Power Up*/
+	FTimerHandle TimerHandle;
 };
